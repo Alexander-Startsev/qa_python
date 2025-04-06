@@ -31,26 +31,20 @@
 11. test_delete_book_from_favorites
     - Проверяет удаление книги из списка избранных.
 
-12. test_add_favorites_nonexistent_book
-    - Проверяет, что попытка добавить несуществующую книгу в избранное не приводит к ошибке и книга не добавляется.
-
-13. test_add_duplicate_book_in_favorites
-    - Проверяет, что при добавлении одной и той же книги в избранное несколько раз, она добавляется только один раз.
-
-14. test_set_and_get_genre
+12. test_set_and_get_genre
     - Проверяет установку и получение жанра для книги.
 
-15. test_adding_book_genre
+13. test_adding_book_genre
     - Проверяет, что новая книга по умолчанию добавляется с пустым жанром.
 
-16. test_books_with_no_genre
+14. test_books_with_no_genre
     - Проверяет, что метод возвращает правильно книги без жанра.
 
-17. test_invalid_genre
+15. test_invalid_genre
     - Проверяет, что книги с несуществующим жанром не находятся.
 
-18. test_get_books_genre
+16. test_get_books_genre
     - Проверяет правильное получение словаря всех книг с их жанрами.
 
-19. test_get_books_for_children_no_books
+17. test_get_books_for_children_no_books
     - Проверяет, что метод возвращает пустой список, если нет книг, подходящих для детей.
