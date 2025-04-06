@@ -104,3 +104,9 @@ class TestBooksCollector:
         collector = BooksCollector()
         assert collector.get_books_for_children() == []
 
+    def test_add_new_book_add_two_books(self):  #18
+        collector = BooksCollector()
+        collector.add_new_book('Чужой')
+        collector.add_book_in_favorites('Чужой')
+        collector.add_book_in_favorites('Чужой')
+        assert collector.get_list_of_favorites_books().count('Чужой') == 1
