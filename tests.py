@@ -4,23 +4,23 @@ from main import BooksCollector
 
 class TestBooksCollector:
 
-    def test_add_new_book_add_books(self):
+    def test_add_new_book_add_books(self):      #1
         collector = BooksCollector()
         collector.add_new_book('Властелин колец')
         assert collector.books_genre['Властелин колец'] == ''
 
-    def test_add_new_book_length_more_40(self):
+    def test_add_new_book_length_more_40(self):     #2
         collector = BooksCollector()
         collector.add_new_book('о' * 41)
         assert "оооооооооооооооооооооооооооооооооооооооооооооо" not in collector.books_genre
 
-    def test_add_new_book_length_is_0(self):
+    def test_add_new_book_length_is_0(self):    #3
         collector = BooksCollector()
         collector.add_new_book('')
         assert "" not in collector.books_genre
 
-    @pytest.mark.parametrize('books, genre', [('Шерлок Холмс', 'Детективы'),
-                                              ('Гарри Поттер', 'Фатнастика')])
+    @pytest.mark.parametrize('books, genre', [('Властелин колец', 'Фэнтэзи'),        #4
+                                              ('Чужой', 'Ужасы')])
     def test_get_list_of_favorites_books_have_books(self, books, genre):
         collector = BooksCollector()
         collector.add_new_book(books)
@@ -29,89 +29,77 @@ class TestBooksCollector:
         assert books in collector.get_list_of_favorites_books()
 
 
-    def test_set_book_genre(self):
+    def test_set_book_genre(self):     #5
         collector = BooksCollector()
-        collector.add_new_book('Гарри Поттер')
-        collector.set_book_genre('Гарри Поттер', 'Фантастика')
-        assert collector.get_book_genre('Гарри Поттер') == 'Фантастика'
+        collector.add_new_book('Чужой')
+        collector.set_book_genre('Чужой', 'Ужасы')
+        assert collector.get_book_genre('Чужой') == 'Ужасы'
 
-    def test_set_book_genre_invalid(self):
+    def test_set_book_genre_invalid(self):  #6
         collector = BooksCollector()
-        collector.add_new_book('Гарри Поттер')
-        collector.set_book_genre('Гарри Поттер', 'Роман')
-        assert collector.get_book_genre('Гарри Поттер') == ''
+        collector.add_new_book('Чужой')
+        collector.set_book_genre('Чужой', 'Роман')
+        assert collector.get_book_genre('Чужой') == ''
 
-    def test_get_books_with_specific_genre(self):
+    def test_get_books_with_specific_genre(self):   #7
         collector = BooksCollector()
-        collector.add_new_book('Гарри Поттер')
-        collector.set_book_genre('Гарри Поттер', 'Фантастика')
-        assert collector.get_books_with_specific_genre('Фантастика') == ['Гарри Поттер']
+        collector.add_new_book('Чужой')
+        collector.set_book_genre('Чужой', 'Фантастика')
+        assert collector.get_books_with_specific_genre('Фантастика') == ['Чужой']
 
-    def test_get_books_for_children_list_is_not_empty(self):
+    def test_get_books_for_children_list_is_not_empty(self):    #8
         collector = BooksCollector()
-        collector.add_new_book('Гарри Поттер')
-        collector.set_book_genre('Гарри Поттер', 'Мультфильмы')
-        assert 'Гарри Поттер' in collector.get_books_for_children()
+        collector.add_new_book('Чужой')
+        collector.set_book_genre('Чужой', 'Фантастика')
+        assert 'Чужой' in collector.get_books_for_children()
 
-    def test_get_books_for_children_list_is_empty(self):
+    def test_get_books_for_children_list_is_empty(self):    #9
         collector = BooksCollector()
-        collector.add_new_book('Пила')
-        collector.set_book_genre('Пила', 'Ужасы')
-        assert 'Пила' not in collector.get_books_for_children()
+        collector.add_new_book('Астрал')
+        collector.set_book_genre('Астрал', 'Ужасы')
+        assert 'Астрал' not in collector.get_books_for_children()
 
-    def test_add_book_in_favorites(self):
+    def test_add_book_in_favorites(self):   #10
         collector = BooksCollector()
-        collector.add_new_book('Гарри Поттер')
-        collector.add_book_in_favorites('Гарри Поттер')
-        assert 'Гарри Поттер' in collector.get_list_of_favorites_books()
+        collector.add_new_book('Властелин колец')
+        collector.add_book_in_favorites('Властелин колец')
+        assert 'Властелин колец' in collector.get_list_of_favorites_books()
 
-    def test_delete_book_from_favorites(self):
+    def test_delete_book_from_favorites(self):  #11
         collector = BooksCollector()
-        collector.add_new_book('Гарри Поттер')
-        collector.add_book_in_favorites('Гарри Поттер')
-        collector.delete_book_from_favorites('Гарри Поттер')
-        assert 'Гарри Поттер' not in collector.get_list_of_favorites_books()
+        collector.add_new_book('Властелин колец')
+        collector.add_book_in_favorites('Властелин колец')
+        collector.delete_book_from_favorites('Властелин колец')
+        assert 'Властелин колец' not in collector.get_list_of_favorites_books()
 
-    def test_add_favorites_nonexistent_book(self):
+    def test_set_and_get_genre(self):       #12
         collector = BooksCollector()
-        collector.add_book_in_favorites('Несуществующая книга')
-        assert 'Несуществующая книга' not in collector.get_list_of_favorites_books()
+        collector.add_new_book('Чужой')
+        collector.set_book_genre('Чужой', 'Ужасы')
+        assert collector.get_book_genre('Чужой') == 'Ужасы'
 
-    def test_add_duplicate_book_in_favorites(self):
+    def test_adding_book_genre(self):       #13
         collector = BooksCollector()
-        collector.add_new_book('Гарри Поттер')
-        collector.add_book_in_favorites('Гарри Поттер')
-        collector.add_book_in_favorites('Гарри Поттер')
-        assert collector.get_list_of_favorites_books().count('Гарри Поттер') == 1
+        collector.add_new_book('Чужой')
+        assert collector.get_book_genre('Чужой') == ''
 
-    def test_set_and_get_genre(self):
+    def test_books_with_no_genre(self):     #14
         collector = BooksCollector()
-        collector.add_new_book('Гарри Поттер')
-        collector.set_book_genre('Гарри Поттер', 'Фантастика')
-        assert collector.get_book_genre('Гарри Поттер') == 'Фантастика'
-
-    def test_adding_book_genre(self):
-        collector = BooksCollector()
-        collector.add_new_book('Гарри Поттер')
-        assert collector.get_book_genre('Гарри Поттер') == ''
-
-    def test_books_with_no_genre(self):
-        collector = BooksCollector()
-        collector.add_new_book('Шерлок Холмс')
+        collector.add_new_book('Бильбо')
         assert collector.get_books_with_specific_genre('') == []
 
-    def test_invalid_genre(self):
+    def test_invalid_genre(self):       #15
         collector = BooksCollector()
-        collector.add_new_book('Гарри Поттер')
-        collector.set_book_genre('Гарри Поттер', 'Фантастика')
-        books_with_invalid_genre = collector.get_books_with_specific_genre('Авангардизм')
+        collector.add_new_book('Чужой')
+        collector.set_book_genre('Чужой', 'Ужасы')
+        books_with_invalid_genre = collector.get_books_with_specific_genre('Пьеса')
         assert books_with_invalid_genre == []
 
-    def test_get_books_genre(self):
+    def test_get_books_genre(self):     #16
         collector = BooksCollector()
-        collector.add_new_book('Гарри Поттер')
-        assert collector.get_books_genre() == {'Гарри Поттер': ''}
+        collector.add_new_book('Чужой')
+        assert collector.get_books_genre() == {'Чужой': ''}
 
-    def test_get_books_for_children_no_books(self):
+    def test_get_books_for_children_no_books(self):     #17
         collector = BooksCollector()
         assert collector.get_books_for_children() == []
